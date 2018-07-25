@@ -1,0 +1,3 @@
+available_products:
+  path: /products/available
+  controller: Bbasinski\WarehouseBundle\Controller\ProductsController::available

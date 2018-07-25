@@ -1,0 +1,11 @@
+{
+  "name": "bbasinski/warehouse-bundle",
+  "description": "Symfony 4 warehouse bundle",
+  "license": "MIT",
+  "type": "symfony-bundle",
+  "autoload": {
+    "psr-4": {
+      "Bbasinski\\WarehouseBundle": ""
+    }
+  }
+}
