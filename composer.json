@@ -5,7 +5,10 @@
   "type": "symfony-bundle",
   "autoload": {
     "psr-4": {
-      "Bbasinski\\WarehouseBundle": ""
+      "Bbasinski\\WarehouseBundle\\": ""
     }
+  },
+  "require": {
+    "symfony/orm-pack": "^1.0"
   }
 }
