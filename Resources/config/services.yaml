@@ -1,0 +1,3 @@
+services:
+  Bbasinski\WarehouseBundle\DataFixtures\ProductFixtures:
+    tags: ['doctrine.fixture.orm']
