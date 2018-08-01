@@ -1,3 +1,6 @@
 services:
   Bbasinski\WarehouseBundle\DataFixtures\ItemFixtures:
     tags: ['doctrine.fixture.orm']
+  Bbasinski\WarehouseBundle\Repository\ItemRepository:
+    tags: ['doctrine.repository_service']
+    arguments: ['@Doctrine\Common\Persistence\ManagerRegistry']
