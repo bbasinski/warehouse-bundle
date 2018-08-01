@@ -15,17 +15,17 @@ class Item
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $amount;
+    public $amount;
 
     /**
      * @return mixed
