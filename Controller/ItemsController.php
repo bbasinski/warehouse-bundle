@@ -14,7 +14,7 @@ class ItemsController extends Controller
         /** @var ItemRepository $itemsRepository */
         $itemsRepository = $this->getDoctrine()->getRepository(Item::class);
 
-        return new JsonResponse($itemsRepository->findAllAvailableItems()); //TODO
+        return new JsonResponse($itemsRepository->findAllAvailableItems());
     }
 
 }
