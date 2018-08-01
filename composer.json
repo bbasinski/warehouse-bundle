@@ -1,5 +1,6 @@
 {
   "name": "bbasinski/warehouse-bundle",
+  "version": "1.0.0",
   "description": "Symfony 4 warehouse bundle",
   "license": "MIT",
   "type": "symfony-bundle",
