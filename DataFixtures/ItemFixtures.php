@@ -2,11 +2,11 @@
 
 namespace Bbasinski\WarehouseBundle\DataFixtures;
 
-use Bbasinski\WarehouseBundle\Entity\Product;
+use Bbasinski\WarehouseBundle\Entity\Item;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class ProductFixtures extends Fixture
+class ItemFixtures extends Fixture
 {
 
     /**
@@ -40,7 +40,7 @@ class ProductFixtures extends Fixture
         ];
 
         foreach ($products as $p) {
-            $product = new Product();
+            $product = new Item();
             $product->setName($p['name']);
             $product->setAmount($p['amount']);
             $manager->persist($product);
