@@ -7,3 +7,7 @@ unavailable_items:
 items_amount_over:
   path: /items/amount/over/{amount}
   controller: Bbasinski\WarehouseBundle\Controller\ItemsController::amountOver
+
+api_client:
+  path: /
+  controller: Bbasinski\WarehouseBundle\Controller\ClientController::endpoints
