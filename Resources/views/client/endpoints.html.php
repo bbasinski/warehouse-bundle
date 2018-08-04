@@ -13,11 +13,11 @@
 <body>
 <section class="section">
   <div class="container">
-    <h1 class="title">Items API client</h1>
+    <h1 class="title">Items API</h1>
     <h2 class="subtitle">
-      A simple client to present results.
+      A simple client.
     </h2>
-    <div class="tabs">
+    <div class="tabs is-centered is-boxed">
       <ul>
         <li class="is-active"><a href="/">Endpoints</a></li>
         <li><a>Add</a></li>
@@ -54,24 +54,26 @@
       </div>
     </form>
 
-    <?php if(!is_null($endpoint)): ?>
-    <label class="label" style="margin-top: 20px">Results</label>
+      <?php if (!is_null($endpoint)): ?>
+        <label class="label" style="margin-top: 20px">Results (<?=$endpoint?>)</label>
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-      <thead>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Amount</th>
-      </thead>
-      <tbody>
-      <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-      </tr>
-      </tbody>
-    </table>
-    <?php endif; ?>
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <thead>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Amount</th>
+          </thead>
+          <tbody>
+          <?php foreach ($results->items as $item): ?>
+            <tr>
+              <td><?=$item->id?></td>
+              <td><?=$item->name?></td>
+              <td><?=$item->amount?></td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+      <?php endif; ?>
 
   </div>
   <footer class="footer">

@@ -30,7 +30,7 @@ warehouse_bundle:
 
 ### Configure DATABASE_URL in .env
 ```
-DATABASE_URL="sqlite:///%kernel.project_dir%/var/warehouse.db"
+DATABASE_URL=sqlite:///%kernel.project_dir%/var/warehouse.db
 ```
 
 ### Prepare database
@@ -50,8 +50,8 @@ php -S 127.0.0.1:8000 -t public #client
 php -S 127.0.0.1:8001 -t public #api
 ```
 
-Then set API_URI in config
+If api host address is different than client address configure API_URI in .env
 ```
-TODO
+API_URI=http://host:port
 ```
 

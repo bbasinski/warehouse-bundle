@@ -3,7 +3,6 @@
 namespace Bbasinski\WarehouseBundle\Controller;
 
 use GuzzleHttp\Client;
-use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,21 +24,28 @@ class ClientController extends Controller
             return $this->redirect('/');
         }
 
-        if (!is_null($endpoint)){
+        if (!is_null($endpoint)) {
             $results = $this->getResults(self::AVAILABLE_ENDPOINTS[$endpoint], $request);
         }
 
         ob_start();
-        require __DIR__ . '/../Resources/views/endpoints.html.php';
+        require __DIR__ . '/../Resources/views/client/endpoints.html.php';
 
         return new Response(ob_get_clean(), Response::HTTP_NOT_FOUND);
     }
 
     private function getResults($endpointUri, Request $request)
     {
+        $uri = $request->getSchemeAndHttpHost();
 
-        $uri = $request->getScheme() . '://' . '127.0.0.1:8001' . $endpointUri;
+        $envUri = getenv('API_URI');
 
-        var_dump(file_get_contents($uri));
+        if ($envUri) {
+            $uri = $envUri;
+        }
+
+        $client = new Client();
+
+        return \GuzzleHttp\json_decode($client->get($uri . $endpointUri)->getBody());
     }
 }
