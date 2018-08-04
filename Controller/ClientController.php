@@ -2,6 +2,7 @@
 
 namespace Bbasinski\WarehouseBundle\Controller;
 
+use Bbasinski\WarehouseBundle\Service\AddItemService;
 use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,8 +50,20 @@ class ClientController extends Controller
         return \GuzzleHttp\json_decode($client->get($uri . $endpointUri)->getBody());
     }
 
-    public function add()
+    public function add(Request $request, AddItemService $addItemService)
     {
+        $message = false;
 
+        if ($request->getMethod() === Request::METHOD_POST) {
+            $message = $addItemService->create(
+                $request->get('name'),
+                $request->get('amount')
+            );
+        }
+
+        ob_start();
+        require __DIR__ . '/../Resources/views/client/add.html.php';
+
+        return new Response(ob_get_clean(), Response::HTTP_OK);
     }
 }

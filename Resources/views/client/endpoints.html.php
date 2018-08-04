@@ -20,7 +20,7 @@
     <div class="tabs is-centered is-boxed">
       <ul>
         <li class="is-active"><a href="/">Endpoints</a></li>
-        <li><a>Add</a></li>
+        <li><a href="/add">Add</a></li>
         <li><a>Edit/Remove</a></li>
       </ul>
     </div>

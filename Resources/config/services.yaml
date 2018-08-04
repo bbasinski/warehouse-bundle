@@ -7,7 +7,12 @@ services:
   Bbasinski\WarehouseBundle\Controller\ItemsController:
     autowire: true
     tags: ['controller.service_arguments']
+  Bbasinski\WarehouseBundle\Controller\ClientController:
+    autowire: true
+    tags: ['controller.service_arguments']
   Bbasinski\WarehouseBundle\Command\ConfigCommand:
     tags: ['console.command']
   Bbasinski\WarehouseBundle\Command\DatabaseCommand:
     tags: ['console.command']
+  Bbasinski\WarehouseBundle\Service\AddItemService:
+    autowire: true
