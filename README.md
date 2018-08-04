@@ -2,8 +2,17 @@ WarehouseBundle
 ===============
 Symfony 4 bundle
 
-Installation
-------------
+Automatic installation
+----------------------
+```
+composer require bbasinski/warehouse-bundle
+bin/console warehouse:init:config
+bin/console warehouse:init:database
+```
+
+
+Manual installation
+------
 ### Register bundle in config/bundles.php
 ```php
 <?php
@@ -19,23 +28,30 @@ warehouse_bundle:
   resource: '@BbasinskiWarehouseBundle/Resources/config/routes.yaml'
 ```
 
-### Configure database in .env
-```
-DATABASE_URL="sqlite:///%kernel.project_dir%/var/warehouse.db"
-```
-
 ### Configure DATABASE_URL in .env
 ```
 DATABASE_URL="sqlite:///%kernel.project_dir%/var/warehouse.db"
 ```
-### Configure database driver in config/packages/doctrine.yaml
-```
-todo
-```
 
 ### Prepare database
 ```
-php bin/console doctrine:database:create
-php bin/console doctrine:schema:update --force
-php bin/console doctrine:fixtures:load
+bin/console doctrine:database:create
+bin/console doctrine:schema:update --force
+bin/console doctrine:fixtures:load
 ```
+
+Running application
+-----------
+If you're going to host symfony using PHP built-in web server then you need to run it twice
+because of its single-threaded nature. Otherwise client would not be able to make calls to API.
+
+```
+php -S 127.0.0.1:8000 -t public #client
+php -S 127.0.0.1:8001 -t public #api
+```
+
+Then set API_URI in config
+```
+TODO
+```
+
