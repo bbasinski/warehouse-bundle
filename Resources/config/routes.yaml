@@ -1,13 +1,18 @@
+#API
 available_items:
+  methods: [GET]
   path: /items/available
   controller: Bbasinski\WarehouseBundle\Controller\ItemsController::available
 unavailable_items:
+  methods: [GET]
   path: /items/unavailable
   controller: Bbasinski\WarehouseBundle\Controller\ItemsController::unavailable
 items_amount_over:
+  methods: [GET]
   path: /items/amount/over/{amount}
   controller: Bbasinski\WarehouseBundle\Controller\ItemsController::amountOver
 
-api_client:
+#CLIENT
+client_endpoints:
   path: /
   controller: Bbasinski\WarehouseBundle\Controller\ClientController::endpoints

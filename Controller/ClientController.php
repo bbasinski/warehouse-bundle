@@ -31,7 +31,7 @@ class ClientController extends Controller
         ob_start();
         require __DIR__ . '/../Resources/views/client/endpoints.html.php';
 
-        return new Response(ob_get_clean(), Response::HTTP_NOT_FOUND);
+        return new Response(ob_get_clean(), Response::HTTP_OK);
     }
 
     private function getResults($endpointUri, Request $request)
@@ -47,5 +47,10 @@ class ClientController extends Controller
         $client = new Client();
 
         return \GuzzleHttp\json_decode($client->get($uri . $endpointUri)->getBody());
+    }
+
+    public function add()
+    {
+
     }
 }
