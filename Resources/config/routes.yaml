@@ -1,3 +1,9 @@
-available_products:
+available_items:
   path: /items/available
   controller: Bbasinski\WarehouseBundle\Controller\ItemsController::available
+unavailable_items:
+  path: /items/unavailable
+  controller: Bbasinski\WarehouseBundle\Controller\ItemsController::unavailable
+items_amount_over:
+  path: /items/amount/over/{amount}
+  controller: Bbasinski\WarehouseBundle\Controller\ItemsController::amountOver

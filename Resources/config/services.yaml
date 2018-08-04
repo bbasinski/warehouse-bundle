@@ -4,3 +4,6 @@ services:
   Bbasinski\WarehouseBundle\Repository\ItemRepository:
     tags: ['doctrine.repository_service']
     arguments: ['@Doctrine\Common\Persistence\ManagerRegistry']
+  Bbasinski\WarehouseBundle\Controller\ItemsController:
+    autowire: true
+    tags: ['controller.service_arguments']

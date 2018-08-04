@@ -24,4 +24,23 @@ class ItemRepository extends ServiceEntityRepository
 
         return $builder->execute();
     }
+
+    public function findAllUnavailableItems()
+    {
+        $builder = $this->createQueryBuilder('i')
+            ->andWhere('i.amount <= 0')
+            ->getQuery();
+
+        return $builder->execute();
+    }
+
+    public function findAllAmountOver(int $amount)
+    {
+        $builder = $this->createQueryBuilder('i')
+            ->andWhere('i.amount > :amount')
+            ->setParameter('amount', $amount)
+            ->getQuery();
+
+        return $builder->execute();
+    }
 }
