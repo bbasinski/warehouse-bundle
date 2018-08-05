@@ -18,6 +18,7 @@ class ConfigCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->registerRoutes($output);
+        $this->enablePHPTemplateEngine($output);
         $this->configureDatabase($output);
     }
 
@@ -31,6 +32,19 @@ class ConfigCommand extends Command
         } else {
             $output->writeln('<error>Failed to copy routes. You\'ll need to register routes manually.</error>');
         }
+    }
+
+    private function enablePHPTemplateEngine(OutputInterface $output)
+    {
+        $path = getcwd() . '/config/packages/framework.yaml';
+
+        $file = fopen($path, 'a');
+
+        $templating = "    templating:" . PHP_EOL . "        engines: ['php']" . PHP_EOL;
+
+        fwrite($file, $templating);
+
+        $output->write('<info>PHP template engine configured.</info>');
     }
 
     private function configureDatabase(OutputInterface $output)
