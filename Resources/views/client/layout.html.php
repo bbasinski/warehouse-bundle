@@ -1,3 +1,7 @@
+<?php
+$controller = explode('::', $view['request']->getParameter('_controller'));
+$action = end($controller);
+?>
 <!doctype html>
 <html lang="pl">
 <head>
@@ -18,15 +22,15 @@
     </h2>
     <div class="tabs is-centered is-boxed">
       <ul>
-        <li class="is-active"><a href="/">Endpoints</a></li>
-        <li><a href="/add">Add</a></li>
+        <li <?= ($action !== 'endpoints') ?: 'class="is-active"' ?>><a href="/">Endpoints</a></li>
+        <li <?= ($action !== 'add') ?: 'class="is-active"' ?>><a href="/add">Add</a></li>
         <li><a>Edit/Remove</a></li>
       </ul>
     </div>
   </div>
 </section>
 <div class="container">
-  <?php $view['slots']->output('_content'); ?>
+    <?php $view['slots']->output('_content'); ?>
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
