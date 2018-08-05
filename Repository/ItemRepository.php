@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Bbasinski\WarehouseBundle\Repository;
 
@@ -25,7 +25,10 @@ class ItemRepository extends ServiceEntityRepository
         return $builder->execute();
     }
 
-    public function findAllUnavailableItems()
+    /**
+     * @return Item[]
+     */
+    public function findAllUnavailableItems(): array
     {
         $builder = $this->createQueryBuilder('i')
             ->andWhere('i.amount <= 0')
@@ -34,7 +37,11 @@ class ItemRepository extends ServiceEntityRepository
         return $builder->execute();
     }
 
-    public function findAllAmountOver(int $amount)
+    /**
+     * @param int $amount
+     * @return Item[]
+     */
+    public function findAllAmountOver(int $amount): array
     {
         $builder = $this->createQueryBuilder('i')
             ->andWhere('i.amount > :amount')

@@ -1,11 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Bbasinski\WarehouseBundle\Controller;
 
-use Bbasinski\WarehouseBundle\Service\AddItemService;
 use GuzzleHttp\Client;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
 {
@@ -14,11 +15,12 @@ class ClientController extends Controller
         'unavailable' => '/items/unavailable',
         'amount-over-5' => '/items/amount/over/5',
     ];
+    private $message = false;
 
-    public function endpoints(Request $request)
+    public function endpoints(Request $request): Response
     {
         $endpoint = $request->get('endpoint');
-        $results = new \stdClass();
+        $results = new stdClass();
         $results->items = [];
 
         if (!is_null($endpoint) && !isset(self::AVAILABLE_ENDPOINTS[$endpoint])) {
@@ -38,7 +40,7 @@ class ClientController extends Controller
         );
     }
 
-    private function getResults($endpointUri, Request $request)
+    private function getResults($endpointUri, Request $request): stdClass
     {
         $uri = $this->getApiUri($request);
 
@@ -51,7 +53,7 @@ class ClientController extends Controller
      * @param Request $request
      * @return array|false|string
      */
-    private function getApiUri(Request $request)
+    private function getApiUri(Request $request): string
     {
         $uri = $request->getSchemeAndHttpHost();
 
@@ -64,10 +66,13 @@ class ClientController extends Controller
         return $uri;
     }
 
-    public function add(Request $request)
+    protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
-        $message = false;
+        return parent::render($view, array_merge($parameters, ['message' => $this->message]));
+    }
 
+    public function add(Request $request): Response
+    {
         if ($request->getMethod() === Request::METHOD_POST) {
             $client = new Client();
             $addResponse = \GuzzleHttp\json_decode(
@@ -84,21 +89,15 @@ class ClientController extends Controller
             );
 
             if ($addResponse->status === 'success') {
-                $message = $addResponse->message;
+                $this->message = $addResponse->message;
             }
         }
 
-        return $this->render(
-            '@BbasinskiWarehouseBundle/Resources/views/client/add.html.php',
-            [
-                'message' => $message
-            ]
-        );
+        return $this->render('@BbasinskiWarehouseBundle/Resources/views/client/add.html.php');
     }
 
-    public function edit(int $itemId, Request $request)
+    public function edit(int $itemId, Request $request): Response
     {
-        $message = false;
         $item = null;
         $client = new Client();
         $api = $this->getApiUri($request);
@@ -118,7 +117,7 @@ class ClientController extends Controller
             );
 
             if ($editResponse->status === 'success') {
-                $message = $editResponse->message;
+                $this->message = $editResponse->message;
             }
         }
 
@@ -133,7 +132,6 @@ class ClientController extends Controller
         return $this->render(
             '@BbasinskiWarehouseBundle/Resources/views/client/edit.html.php',
             [
-                'message' => $message,
                 'item' => $item
             ]
         );

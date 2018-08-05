@@ -5,7 +5,7 @@ namespace Bbasinski\WarehouseBundle\Service;
 use Bbasinski\WarehouseBundle\Entity\Item;
 use Doctrine\ORM\EntityManagerInterface;
 
-class EditItemService
+class DeleteItemService
 {
     /**
      * @var EntityManagerInterface
@@ -17,19 +17,10 @@ class EditItemService
         $this->entityManager = $entityManager;
     }
 
-    public function edit(string $id, string $name, string $amount): void
+    public function delete(int $id): void
     {
-        /** @var Item $item */
         $item = $this->entityManager->getRepository(Item::class)->find($id);
-
-        if (!$item) {
-            throw new \InvalidArgumentException('Item not found');
-        }
-
-        $item->setName($name);
-        $item->setAmount($amount);
-
+        $this->entityManager->remove($item);
         $this->entityManager->flush();
     }
-
 }

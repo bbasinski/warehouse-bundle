@@ -30,6 +30,11 @@ $action = end($controller);
       <li <?= ($action !== 'add') ?: 'class="is-active"' ?>><a href="/add">Add</a></li>
     </ul>
   </div>
+    <?php if ($message): ?>
+      <div class="notification is-success">
+          <?= $message ?>
+      </div>
+    <?php endif; ?>
     <?php $view['slots']->output('_content'); ?>
   <footer class="footer">
     <div class="content has-text-centered">

@@ -1,12 +1,5 @@
 <?php $view->extend('@BbasinskiWarehouseBundle/Resources/views/client/layout.html.php') ?>
-
 <div class="container">
-    <?php if ($message): ?>
-      <div class="notification is-success">
-          <?= $message ?>
-      </div>
-    <?php endif; ?>
-
   <div class="notification">
     <form method="post">
       <div class="field">
@@ -26,6 +19,4 @@
         <button class="button is-info">Edit</button>
       </div>
     </form>
-
-
   </div>

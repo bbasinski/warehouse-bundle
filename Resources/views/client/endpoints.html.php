@@ -27,10 +27,8 @@
       </div>
     </div>
   </form>
-
     <?php if (!is_null($endpoint)): ?>
       <label class="label" style="margin-top: 20px">Results (<?= $endpoint ?>)</label>
-
       <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
         <th>Id</th>
@@ -60,5 +58,4 @@
         </tbody>
       </table>
     <?php endif; ?>
-
 </div>

@@ -15,6 +15,10 @@ edit_item:
   methods: [POST]
   path: /items/{id}
   controller: Bbasinski\WarehouseBundle\Controller\ItemsController::edit
+delete_item:
+  methods: [DELETE]
+  path: /items/{id}
+  controller: Bbasinski\WarehouseBundle\Controller\ItemsController::delete
 add_item:
   methods: [POST]
   path: /items
