@@ -41,4 +41,7 @@ client_edit:
   path: /edit/{itemId}
   controller: Bbasinski\WarehouseBundle\Controller\ClientController::edit
   methods: [GET, POST]
-
+client_delete:
+  path: /delete/{itemId}
+  controller: Bbasinski\WarehouseBundle\Controller\ClientController::delete
+  methods: [GET]

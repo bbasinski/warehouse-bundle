@@ -3,6 +3,7 @@
 namespace Bbasinski\WarehouseBundle\Controller;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ServerException;
 use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class ClientController extends Controller
         }
 
         return $this->render(
-            '@BbasinskiWarehouseBundle/Resources/views/client/endpoints.html.php',
+            'endpoints',
             [
                 'results' => $results,
                 'endpoint' => $endpoint
@@ -68,7 +69,7 @@ class ClientController extends Controller
 
     protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
-        return parent::render($view, array_merge($parameters, ['message' => $this->message]));
+        return parent::render("@BbasinskiWarehouseBundle/Resources/views/client/{$view}.html.php", array_merge($parameters, ['message' => $this->message]));
     }
 
     public function add(Request $request): Response
@@ -93,7 +94,7 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('@BbasinskiWarehouseBundle/Resources/views/client/add.html.php');
+        return $this->render('add');
     }
 
     public function edit(int $itemId, Request $request): Response
@@ -130,10 +131,24 @@ class ClientController extends Controller
         }
 
         return $this->render(
-            '@BbasinskiWarehouseBundle/Resources/views/client/edit.html.php',
+            'edit',
             [
                 'item' => $item
             ]
         );
+    }
+
+    public function delete(int $itemId, Request $request): Response
+    {
+        try {
+            $client = new Client();
+            $client->delete($this->getApiUri($request) . "/items/{$itemId}");
+
+            $this->message = sprintf("Item id %d successfully", $itemId);
+        } catch (ServerException $exception) {
+            $this->message = $exception->getMessage();
+        } finally {
+            return $this->redirect('/');
+        }
     }
 }
