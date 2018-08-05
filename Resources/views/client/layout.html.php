@@ -20,16 +20,15 @@ $action = end($controller);
     <h2 class="subtitle">
       A simple client.
     </h2>
-    <div class="tabs is-centered is-boxed">
-      <ul>
-        <li <?= ($action !== 'endpoints') ?: 'class="is-active"' ?>><a href="/">Endpoints</a></li>
-        <li <?= ($action !== 'add') ?: 'class="is-active"' ?>><a href="/add">Add</a></li>
-        <li><a>Edit/Remove</a></li>
-      </ul>
-    </div>
   </div>
 </section>
 <div class="container">
+  <div class="tabs is-boxed is-fullwidth">
+    <ul>
+      <li <?= ($action !== 'endpoints') ?: 'class="is-active"' ?>><a href="/">Endpoints</a></li>
+      <li <?= ($action !== 'add') ?: 'class="is-active"' ?>><a href="/add">Add</a></li>
+    </ul>
+  </div>
     <?php $view['slots']->output('_content'); ?>
   <footer class="footer">
     <div class="content has-text-centered">
