@@ -17,7 +17,7 @@ class EditItemService
         $this->entityManager = $entityManager;
     }
 
-    public function edit(string $id, string $name, string $amount): void
+    public function edit(int $id, string $name, string $amount): void
     {
         /** @var Item $item */
         $item = $this->entityManager->getRepository(Item::class)->find($id);
