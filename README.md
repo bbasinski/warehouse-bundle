@@ -60,3 +60,4 @@ If api address is different than client address configure API_URI in .env
 API_URI=127.0.0.1:8001
 ```
 
+Then open client in your browser.
