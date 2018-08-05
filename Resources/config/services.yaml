@@ -4,15 +4,13 @@ services:
   Bbasinski\WarehouseBundle\Repository\ItemRepository:
     tags: ['doctrine.repository_service']
     arguments: ['@Doctrine\Common\Persistence\ManagerRegistry']
-  Bbasinski\WarehouseBundle\Controller\ItemsController:
+  Bbasinski\WarehouseBundle\Controller\:
+    resource: '../../Controller'
     autowire: true
     tags: ['controller.service_arguments']
-  Bbasinski\WarehouseBundle\Controller\ClientController:
-    autowire: true
-    tags: ['controller.service_arguments']
-  Bbasinski\WarehouseBundle\Command\ConfigCommand:
+  Bbasinski\WarehouseBundle\Command\:
+    resource: '../../Command'
     tags: ['console.command']
-  Bbasinski\WarehouseBundle\Command\DatabaseCommand:
-    tags: ['console.command']
-  Bbasinski\WarehouseBundle\Service\AddItemService:
+  Bbasinski\WarehouseBundle\Service\:
+    resource: '../../Service'
     autowire: true
