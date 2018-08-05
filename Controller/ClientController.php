@@ -18,7 +18,8 @@ class ClientController extends Controller
     public function endpoints(Request $request)
     {
         $endpoint = $request->get('endpoint');
-        $results = [];
+        $results = new \stdClass();
+        $results->items = [];
 
         if (!is_null($endpoint) && !isset(self::AVAILABLE_ENDPOINTS[$endpoint])) {
             return $this->redirect('/');
@@ -39,6 +40,19 @@ class ClientController extends Controller
 
     private function getResults($endpointUri, Request $request)
     {
+        $uri = $this->getApiUri($request);
+
+        $client = new Client();
+
+        return \GuzzleHttp\json_decode($client->get($uri . $endpointUri)->getBody());
+    }
+
+    /**
+     * @param Request $request
+     * @return array|false|string
+     */
+    private function getApiUri(Request $request)
+    {
         $uri = $request->getSchemeAndHttpHost();
 
         $envUri = getenv('API_URI');
@@ -47,15 +61,14 @@ class ClientController extends Controller
             $uri = $envUri;
         }
 
-        $client = new Client();
-
-        return \GuzzleHttp\json_decode($client->get($uri . $endpointUri)->getBody());
+        return $uri;
     }
 
     public function add(Request $request, AddItemService $addItemService)
     {
         $message = false;
 
+        //todo move it to API
         if ($request->getMethod() === Request::METHOD_POST) {
             $message = $addItemService->create(
                 $request->get('name'),
@@ -67,6 +80,50 @@ class ClientController extends Controller
             '@BbasinskiWarehouseBundle/Resources/views/client/add.html.php',
             [
                 'message' => $message
+            ]
+        );
+    }
+
+    public function edit(int $itemId, Request $request)
+    {
+        //todo if post/patch?
+        $message = false;
+        $item = null;
+        $client = new Client();
+        $api = $this->getApiUri($request);
+
+        if ($request->getMethod() === Request::METHOD_POST) {
+            $editResponse = \GuzzleHttp\json_decode(
+                $client->post($api . "/items/{$itemId}",
+                    [
+                        'json' => [
+                            "item" => [
+                                "name" => $request->get('name'),
+                                "amount" => $request->get('amount')
+                            ]
+                        ],
+                    ]
+                )->getBody()->getContents()
+            );
+
+            if ($editResponse->status === 'success') {
+                $message = $editResponse->message;
+            }
+        }
+
+        $itemResponse = \GuzzleHttp\json_decode($client->get($api . "/items/{$itemId}")->getBody());
+
+        if (!empty($itemResponse->item)) {
+            $item = $itemResponse->item;
+        } else {
+            return $this->redirect('/');
+        }
+
+        return $this->render(
+            '@BbasinskiWarehouseBundle/Resources/views/client/edit.html.php',
+            [
+                'message' => $message,
+                'item' => $item
             ]
         );
     }

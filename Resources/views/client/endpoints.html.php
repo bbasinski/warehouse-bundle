@@ -36,6 +36,8 @@
         <th>Id</th>
         <th>Name</th>
         <th>Amount</th>
+        <th class="is-narrow">Edit</th>
+        <th class="is-narrow">Delete</th>
         </thead>
         <tbody>
         <?php foreach ($results->items as $item): ?>
@@ -43,6 +45,16 @@
             <td><?= $item->id ?></td>
             <td><?= $item->name ?></td>
             <td><?= $item->amount ?></td>
+            <td class="has-text-centered">
+              <a href="/edit/<?= $item->id ?>">
+                <i class="fa fa-edit"></i>
+              </a>
+            </td>
+            <td class="has-text-centered">
+              <a href="/delete/<?= $item->id ?>">
+                <i class="fa fa-trash-alt"></i>
+              </a>
+            </td>
           </tr>
         <?php endforeach; ?>
         </tbody>

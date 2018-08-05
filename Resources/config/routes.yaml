@@ -7,6 +7,14 @@ unavailable_items:
   methods: [GET]
   path: /items/unavailable
   controller: Bbasinski\WarehouseBundle\Controller\ItemsController::unavailable
+item_by_id:
+  methods: [GET]
+  path: /items/{id}
+  controller: Bbasinski\WarehouseBundle\Controller\ItemsController::getById
+edit_item:
+  methods: [POST]
+  path: /items/{id}
+  controller: Bbasinski\WarehouseBundle\Controller\ItemsController::edit
 items_amount_over:
   methods: [GET]
   path: /items/amount/over/{amount}
@@ -20,5 +28,9 @@ client_endpoints:
 client_add:
   path: /add
   controller: Bbasinski\WarehouseBundle\Controller\ClientController::add
+  methods: [GET, POST]
+client_edit:
+  path: /edit/{itemId}
+  controller: Bbasinski\WarehouseBundle\Controller\ClientController::edit
   methods: [GET, POST]
 
