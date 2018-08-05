@@ -2,6 +2,11 @@ WarehouseBundle
 ===============
 Symfony 4 bundle
 
+Requirements
+------------
+* PHP 7
+* Symfony 4
+
 Automatic installation
 ----------------------
 ```
@@ -42,16 +47,16 @@ bin/console doctrine:fixtures:load
 
 Running application
 -----------
-If you're going to host symfony using PHP built-in web server then you need to run it twice
+If you're going to host Symfony using PHP built-in web server then you need to run it twice
 because of its single-threaded nature. Otherwise client would not be able to make calls to API.
 
 ```
-php -S 127.0.0.1:8000 -t public #client
-php -S 127.0.0.1:8001 -t public #api
+php -S 127.0.0.1:8000 -t public   #client
+php -S 127.0.0.1:8001 -t public   #api
 ```
 
-If api host address is different than client address configure API_URI in .env
+If api address is different than client address configure API_URI in .env
 ```
-API_URI=http://host:port
+API_URI=127.0.0.1:8001
 ```
 
