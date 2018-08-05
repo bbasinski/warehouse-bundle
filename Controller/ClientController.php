@@ -64,16 +64,28 @@ class ClientController extends Controller
         return $uri;
     }
 
-    public function add(Request $request, AddItemService $addItemService)
+    public function add(Request $request)
     {
         $message = false;
 
-        //todo move it to API
         if ($request->getMethod() === Request::METHOD_POST) {
-            $message = $addItemService->create(
-                $request->get('name'),
-                $request->get('amount')
+            $client = new Client();
+            $addResponse = \GuzzleHttp\json_decode(
+                $client->post($this->getApiUri($request) . "/items",
+                    [
+                        'json' => [
+                            "item" => [
+                                "name" => $request->get('name'),
+                                "amount" => $request->get('amount')
+                            ]
+                        ],
+                    ]
+                )->getBody()->getContents()
             );
+
+            if ($addResponse->status === 'success') {
+                $message = $addResponse->message;
+            }
         }
 
         return $this->render(
@@ -86,7 +98,6 @@ class ClientController extends Controller
 
     public function edit(int $itemId, Request $request)
     {
-        //todo if post/patch?
         $message = false;
         $item = null;
         $client = new Client();

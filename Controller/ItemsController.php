@@ -3,6 +3,7 @@
 namespace Bbasinski\WarehouseBundle\Controller;
 
 use Bbasinski\WarehouseBundle\Repository\ItemRepository;
+use Bbasinski\WarehouseBundle\Service\AddItemService;
 use Bbasinski\WarehouseBundle\Service\EditItemService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,6 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ItemsController extends Controller
 {
+    public function add(AddItemService $addItemService, Request $request)
+    {
+        $data = \GuzzleHttp\json_decode($request->getContent());
+
+        $addItemService->create(
+            $data->item->name,
+            $data->item->amount
+        );
+
+        return $this->successMessage(sprintf('Item %s successfully added.', $data->item->name));
+    }
+
     public function getById(string $id, ItemRepository $itemRepository)
     {
         return $this->json(

@@ -3,7 +3,7 @@
 <div class="container">
     <?php if ($message): ?>
       <div class="notification is-success">
-        Item added
+        <?= $message ?>
       </div>
     <?php endif; ?>
 
