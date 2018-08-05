@@ -6,7 +6,6 @@ use Bbasinski\WarehouseBundle\Service\AddItemService;
 use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
 {
@@ -29,10 +28,13 @@ class ClientController extends Controller
             $results = $this->getResults(self::AVAILABLE_ENDPOINTS[$endpoint], $request);
         }
 
-        ob_start();
-        require __DIR__ . '/../Resources/views/client/endpoints.html.php';
-
-        return new Response(ob_get_clean(), Response::HTTP_OK);
+        return $this->render(
+            '@BbasinskiWarehouseBundle/Resources/views/client/endpoints.html.php',
+            [
+                'results' => $results,
+                'endpoint' => $endpoint
+            ]
+        );
     }
 
     private function getResults($endpointUri, Request $request)
@@ -61,9 +63,11 @@ class ClientController extends Controller
             );
         }
 
-        ob_start();
-        require __DIR__ . '/../Resources/views/client/add.html.php';
-
-        return new Response(ob_get_clean(), Response::HTTP_OK);
+        return $this->render(
+            '@BbasinskiWarehouseBundle/Resources/views/client/add.html.php',
+            [
+                'message' => $message
+            ]
+        );
     }
 }
