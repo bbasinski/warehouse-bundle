@@ -18,7 +18,7 @@ class ItemsController extends Controller
 
         $addItemService->create(
             $data->item->name,
-            $data->item->amount
+            (int)$data->item->amount
         );
 
         return $this->successMessage(sprintf('Item %s successfully added.', $data->item->name));
@@ -77,7 +77,7 @@ class ItemsController extends Controller
         $editItemService->edit(
             $id,
             $data->item->name,
-            $data->item->amount
+            (int)$data->item->amount
         );
 
         return $this->successMessage(sprintf('Item %s successfully saved.', $data->item->name));
