@@ -9,8 +9,18 @@ Requirements
 
 Automatic installation
 ----------------------
+Add repository to composer.json
 ```
-composer require bbasinski/warehouse-bundle
+ "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bbasinski/warehouse-bundle.git"
+        }
+    ],
+```
+Then
+```
+composer require bbasinski/warehouse-bundle 'dev-master'
 bin/console warehouse:init:config
 bin/console warehouse:init:database
 ```
@@ -61,3 +71,13 @@ API_URI=127.0.0.1:8001
 ```
 
 Then open client in your browser.
+
+List of available endpoints
+---------------------------
+* `GET` /items/available - get available items
+* `GET` /items/unavailable - get unavailable items
+* `GET` /items/amount/over/{amount} - get items with amount over x
+* `GET` /items/{id} - get item by id
+* `POST` /items - add item
+* `POST` /items/{id} - update item
+* `DELETE` /items/{id} - delete item
