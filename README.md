@@ -48,6 +48,13 @@ warehouse_bundle:
 DATABASE_URL=sqlite:///%kernel.project_dir%/var/warehouse.db
 ```
 
+### Enable PHP template engine in config/packages/framework.yaml
+```
+framework:
+  templating:
+    engines: ['php']
+```
+
 ### Prepare database
 ```
 bin/console doctrine:database:create
